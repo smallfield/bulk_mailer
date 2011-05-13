@@ -1,6 +1,6 @@
 package jp.wsotokyo.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-13 11:17:11")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-14 01:13:45")
 /** */
 public final class SenderMeta extends org.slim3.datastore.ModelMeta<jp.wsotokyo.model.Sender> {
 

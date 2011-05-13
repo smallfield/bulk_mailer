@@ -9,7 +9,7 @@
 <title>Index</title>
 </head>
 <body>
-<h1>早稲田大学交響楽団 メール一括送信システム</h1>
+<h1>メール一括送信システム</h1>
 <ul>
 	<li><a href="edit">送信先メールアドレスの編集</a></li>
 	<li><a href="send">メール送信</a></li>
