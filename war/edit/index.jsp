@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>edit Index</title>
+<title>メールアドレス編集</title>
 </head>
 <body>
 <h1>メールアドレス編集</h1>
