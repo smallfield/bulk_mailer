@@ -13,8 +13,8 @@ public class CommitController extends Controller {
     @Override
     public Navigation run() throws Exception {
 
-        String email = request.getParameter("email");
-        String name = request.getParameter("name");
+        String email =asString("email");
+        String name = asString("name");
         if (name.length() > 0
             && email.length() > 0
             && email
