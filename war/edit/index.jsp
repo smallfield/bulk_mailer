@@ -36,7 +36,7 @@
 		</tr>
 		<c:forEach var="e" items="${list}">
 		<tr>
-			<td>${f:h(e.name)}</td><td>${f:h(e.mailaddress)}</td>
+			<td>${f:h(e.name)}</td><td>${f:h(e.email)}</td>
 			<td><a href="delete?id=${f:h(e.key)}">
 				削除
 			</a></td>

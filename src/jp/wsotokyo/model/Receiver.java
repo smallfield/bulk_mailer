@@ -20,7 +20,7 @@ public class Receiver implements Serializable {
     private Long version;
 
     private String name;
-    private String mailaddress;
+    private String email;
     private ModelRef<Sender> senderRef = new ModelRef<Sender>(Sender.class);
 
     /**
@@ -99,15 +99,16 @@ public class Receiver implements Serializable {
         return name;
     }
 
-    public void setMailaddress(String mailaddress) {
-        this.mailaddress = mailaddress;
-    }
-
-    public String getMailaddress() {
-        return mailaddress;
-    }
 
     public ModelRef<Sender> getSenderRef() {
         return senderRef;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

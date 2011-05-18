@@ -12,23 +12,24 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 
-import jp.wsotokyo.meta.ReceiverMeta;
 import jp.wsotokyo.model.Receiver;
 import jp.wsotokyo.model.SendLog;
+import jp.wsotokyo.service.ReceiverService;
 
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Transaction;
+import com.google.appengine.repackaged.com.google.common.base.Log2;
 
 public class SendController extends Controller {
 
     @Override
     public Navigation run() throws Exception {
-        ReceiverMeta r = new ReceiverMeta();
-        List<Receiver> list = Datastore.query(r).asList();
+        List<Receiver> list = ReceiverService.getList();
 
+        // メール作成
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
         String msgBody = request.getParameter("body");
@@ -37,7 +38,7 @@ public class SendController extends Controller {
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress("office@wso-tokyo.jp"));
             msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
-                receiver.getMailaddress(),
+                receiver.getEmail(),
                 ""));
             ByteArrayOutputStream bao = new ByteArrayOutputStream();
             String jis = new String(subject.getBytes("iso-2022-jp"));

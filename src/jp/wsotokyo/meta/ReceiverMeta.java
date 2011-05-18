@@ -1,14 +1,14 @@
 package jp.wsotokyo.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-14 08:34:02")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-18 16:24:49")
 /** */
 public final class ReceiverMeta extends org.slim3.datastore.ModelMeta<jp.wsotokyo.model.Receiver> {
 
     /** */
-    public final org.slim3.datastore.CoreAttributeMeta<jp.wsotokyo.model.Receiver, com.google.appengine.api.datastore.Key> key = new org.slim3.datastore.CoreAttributeMeta<jp.wsotokyo.model.Receiver, com.google.appengine.api.datastore.Key>(this, "__key__", "key", com.google.appengine.api.datastore.Key.class);
+    public final org.slim3.datastore.StringAttributeMeta<jp.wsotokyo.model.Receiver> email = new org.slim3.datastore.StringAttributeMeta<jp.wsotokyo.model.Receiver>(this, "email", "email");
 
     /** */
-    public final org.slim3.datastore.StringAttributeMeta<jp.wsotokyo.model.Receiver> mailaddress = new org.slim3.datastore.StringAttributeMeta<jp.wsotokyo.model.Receiver>(this, "mailaddress", "mailaddress");
+    public final org.slim3.datastore.CoreAttributeMeta<jp.wsotokyo.model.Receiver, com.google.appengine.api.datastore.Key> key = new org.slim3.datastore.CoreAttributeMeta<jp.wsotokyo.model.Receiver, com.google.appengine.api.datastore.Key>(this, "__key__", "key", com.google.appengine.api.datastore.Key.class);
 
     /** */
     public final org.slim3.datastore.StringAttributeMeta<jp.wsotokyo.model.Receiver> name = new org.slim3.datastore.StringAttributeMeta<jp.wsotokyo.model.Receiver>(this, "name", "name");
@@ -36,8 +36,8 @@ public final class ReceiverMeta extends org.slim3.datastore.ModelMeta<jp.wsotoky
     @Override
     public jp.wsotokyo.model.Receiver entityToModel(com.google.appengine.api.datastore.Entity entity) {
         jp.wsotokyo.model.Receiver model = new jp.wsotokyo.model.Receiver();
+        model.setEmail((java.lang.String) entity.getProperty("email"));
         model.setKey(entity.getKey());
-        model.setMailaddress((java.lang.String) entity.getProperty("mailaddress"));
         model.setName((java.lang.String) entity.getProperty("name"));
         if (model.getSenderRef() == null) {
             throw new NullPointerException("The property(senderRef) is null.");
@@ -56,7 +56,7 @@ public final class ReceiverMeta extends org.slim3.datastore.ModelMeta<jp.wsotoky
         } else {
             entity = new com.google.appengine.api.datastore.Entity(kind);
         }
-        entity.setProperty("mailaddress", m.getMailaddress());
+        entity.setProperty("email", m.getEmail());
         entity.setProperty("name", m.getName());
         if (m.getSenderRef() == null) {
             throw new NullPointerException("The property(senderRef) must not be null.");
@@ -126,15 +126,15 @@ public final class ReceiverMeta extends org.slim3.datastore.ModelMeta<jp.wsotoky
         jp.wsotokyo.model.Receiver m = (jp.wsotokyo.model.Receiver) model;
         writer.beginObject();
         org.slim3.datastore.json.JsonCoder encoder = null;
+        if(m.getEmail() != null){
+            writer.setNextPropertyName("email");
+            encoder = new org.slim3.datastore.json.Default();
+            encoder.encode(writer, m.getEmail());
+        }
         if(m.getKey() != null){
             writer.setNextPropertyName("key");
             encoder = new org.slim3.datastore.json.Default();
             encoder.encode(writer, m.getKey());
-        }
-        if(m.getMailaddress() != null){
-            writer.setNextPropertyName("mailaddress");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getMailaddress());
         }
         if(m.getName() != null){
             writer.setNextPropertyName("name");
@@ -159,12 +159,12 @@ public final class ReceiverMeta extends org.slim3.datastore.ModelMeta<jp.wsotoky
         jp.wsotokyo.model.Receiver m = new jp.wsotokyo.model.Receiver();
         org.slim3.datastore.json.JsonReader reader = null;
         org.slim3.datastore.json.JsonCoder decoder = null;
+        reader = rootReader.newObjectReader("email");
+        decoder = new org.slim3.datastore.json.Default();
+        m.setEmail(decoder.decode(reader, m.getEmail()));
         reader = rootReader.newObjectReader("key");
         decoder = new org.slim3.datastore.json.Default();
         m.setKey(decoder.decode(reader, m.getKey()));
-        reader = rootReader.newObjectReader("mailaddress");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setMailaddress(decoder.decode(reader, m.getMailaddress()));
         reader = rootReader.newObjectReader("name");
         decoder = new org.slim3.datastore.json.Default();
         m.setName(decoder.decode(reader, m.getName()));
