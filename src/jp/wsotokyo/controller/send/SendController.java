@@ -21,7 +21,6 @@ import org.slim3.controller.Navigation;
 import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Transaction;
-import com.google.appengine.repackaged.com.google.common.base.Log2;
 
 public class SendController extends Controller {
 
