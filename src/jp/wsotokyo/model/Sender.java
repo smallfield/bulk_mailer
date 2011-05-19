@@ -2,6 +2,8 @@ package jp.wsotokyo.model;
 
 import java.io.Serializable;
 
+import jp.wsotokyo.meta.ReceiverMeta;
+
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
@@ -24,7 +26,11 @@ public class Sender implements Serializable {
     private String email;
 
     @Attribute(persistent = false)
-    private InverseModelListRef<Receiver, Sender> receiverListRef;
+    private InverseModelListRef<Receiver, Sender> receiverListRef =
+        new InverseModelListRef<Receiver, Sender>(
+            Receiver.class,
+            ReceiverMeta.get().senderRef.getName(),
+            this);
 
     /**
      * Returns the key.

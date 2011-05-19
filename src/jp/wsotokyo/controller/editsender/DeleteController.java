@@ -1,13 +1,10 @@
 package jp.wsotokyo.controller.editsender;
 
-import jp.wsotokyo.meta.ReceiverMeta;
-
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 import org.slim3.datastore.Datastore;
 
 public class DeleteController extends Controller {
-    static ReceiverMeta rmeta = new ReceiverMeta();
 
     @Override
     public Navigation run() throws Exception {

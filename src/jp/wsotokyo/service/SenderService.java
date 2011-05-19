@@ -7,7 +7,7 @@ import jp.wsotokyo.model.Sender;
 
 import org.slim3.datastore.Datastore;
 
-public class SemderService {
+public class SenderService {
     static SenderMeta m = new SenderMeta();
 
     public static List<Sender> getList() {

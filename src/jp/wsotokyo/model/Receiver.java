@@ -111,4 +111,8 @@ public class Receiver implements Serializable {
     public String getEmail() {
         return email;
     }
+
+    public String getSenderName() {
+        return this.getSenderRef().getModel().getName();
+    }
 }

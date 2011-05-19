@@ -10,6 +10,11 @@
 </head>
 <body>
 <h1>送信者編集</h1>
+<ul>
+<c:forEach var="e" items="${f:errors()}">
+<li>${f:h(e)}</li>
+</c:forEach>
+</ul>
 <form action="commit" method="post">
 <table>
 	<tr>

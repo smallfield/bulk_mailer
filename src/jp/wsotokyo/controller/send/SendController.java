@@ -14,7 +14,7 @@ import javax.mail.internet.MimeUtility;
 
 import jp.wsotokyo.model.Receiver;
 import jp.wsotokyo.model.SendLog;
-import jp.wsotokyo.service.ReceiverService;
+import jp.wsotokyo.model.Sender;
 
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
@@ -26,7 +26,9 @@ public class SendController extends Controller {
 
     @Override
     public Navigation run() throws Exception {
-        List<Receiver> list = ReceiverService.getList();
+
+        Sender sender = Datastore.get(Sender.class, asKey("sender"));
+        List<Receiver> list = sender.getReceiverListRef().getModelList();
 
         // メール作成
         Properties props = new Properties();
@@ -35,7 +37,7 @@ public class SendController extends Controller {
         String subject = request.getParameter("subject");
         for (Receiver receiver : list) {
             Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("office@wso-tokyo.jp"));
+            msg.setFrom(new InternetAddress(sender.getEmail()));
             msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
                 receiver.getEmail(),
                 ""));

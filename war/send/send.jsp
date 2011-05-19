@@ -14,7 +14,7 @@
 </p>
 <ul>
 <c:forEach var="e" items="${list}">
-	<li>${f:h(e.name)}　${f:h(e.mailaddress)}</li>
+	<li>${f:h(e.name)}　${f:h(e.email)}</li>
 </c:forEach>
 </ul>
 </body>

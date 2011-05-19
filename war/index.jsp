@@ -12,6 +12,7 @@
 <h1>メール一括送信システム</h1>
 <ul>
 	<li><a href="edit">送信先メールアドレスの編集</a></li>
+	<li><a href="editsender">送信者の編集</a></li>
 	<li><a href="send">メール送信</a></li>
 	<li><a href="log">送信ログ</a></li>
 </ul>
