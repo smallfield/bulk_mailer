@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page pageEncoding="UTF-8" isELIgnored="false" session="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -16,7 +17,7 @@
 			<ul>
 				<li class="first"><a href="/editsender">送信者の編集</a>
 				</li>
-				<li ><a href="/edit">送信先メールアドレスの編集</a>
+				<li><a href="/edit">送信先メールアドレスの編集</a>
 				</li>
 				<li><a href="/send">メール送信</a>
 				</li>
@@ -44,6 +45,10 @@
 					<div class="post">
 						<h2 class="title">送信ログ</h2>
 						<div class="entry">
+							<%
+								ArrayList list = (ArrayList) request.getAttribute("list");
+								if (list.size() > 0) {
+							%>
 							<table>
 								<tr>
 									<th>日時</th>
@@ -60,6 +65,13 @@
 									</tr>
 								</c:forEach>
 							</table>
+							<%
+								} else {
+							%>
+							<p>送信ログはありません。</p>
+							<%
+								}
+							%>
 						</div>
 
 					</div>

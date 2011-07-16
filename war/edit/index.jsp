@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page pageEncoding="UTF-8" isELIgnored="false" session="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -41,6 +42,11 @@
 					<div class="post">
 						<h2 class="title">送信先メールアドレスの編集</h2>
 						<div class="entry">
+							<%
+								ArrayList list = (ArrayList) request.getAttribute("sender_list");
+								if (list.size() > 0) {
+							%>
+
 							<c:forEach var="e" items="${f:errors()}">
 								<li>${f:h(e)}</li>
 							</c:forEach>
@@ -87,6 +93,13 @@
 									</tr>
 								</c:forEach>
 							</table>
+							<%
+								} else {
+							%>
+							<p>予め送信者を登録する必要があります。</p>
+							<%
+								}
+							%>
 
 						</div>
 
