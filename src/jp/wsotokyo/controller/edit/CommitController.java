@@ -32,11 +32,11 @@ public class CommitController extends Controller {
 
     protected boolean validate() {
         Validators v = new Validators(request);
-        v.add(meta.email, v.required());
         v.add(meta.name, v.required());
         v
             .add(
                 meta.email,
+                v.required(),
                 v
                     .regexp("^[a-z0-9_\\+-]+(\\.[a-z0-9_\\+-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*\\.([a-z]{2,4})$"));
         v.add("sender", v.required());
