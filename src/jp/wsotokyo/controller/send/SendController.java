@@ -1,16 +1,6 @@
 package jp.wsotokyo.controller.send;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
 import java.util.List;
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeUtility;
 
 import jp.wsotokyo.model.Receiver;
 import jp.wsotokyo.model.SendLog;
@@ -20,7 +10,11 @@ import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 import org.slim3.datastore.Datastore;
 
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Transaction;
+import com.google.appengine.api.taskqueue.QueueFactory;
+import com.google.appengine.api.taskqueue.TaskOptions.Builder;
+import com.google.appengine.api.taskqueue.TaskOptions.Method;
 
 public class SendController extends Controller {
 
@@ -30,28 +24,6 @@ public class SendController extends Controller {
         Sender sender = Datastore.get(Sender.class, asKey("sender"));
         List<Receiver> list = sender.getReceiverListRef().getModelList();
 
-        // メール作成
-        Properties props = new Properties();
-        Session session = Session.getDefaultInstance(props, null);
-        String msgBody = request.getParameter("body");
-        String subject = request.getParameter("subject");
-        for (Receiver receiver : list) {
-            Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress(sender.getEmail()));
-            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
-                receiver.getEmail(),
-                ""));
-            ByteArrayOutputStream bao = new ByteArrayOutputStream();
-            String jis = new String(subject.getBytes("iso-2022-jp"));
-            OutputStream out = MimeUtility.encode(bao, "base64");
-            out.write(jis.getBytes("iso-8859-1"));
-            out.close();
-            msg.setSubject("=?iso-2022-jp?B?"+bao.toString("iso-8859-1")+"?=");
-            msg.setText(msgBody.replaceAll("%NAME%", receiver.getName()));
-            Transport.send(msg);
-        }
-        requestScope("list", list);
-
         // logging
         SendLog log = new SendLog();
         log.setReceivers(list);
@@ -60,6 +32,20 @@ public class SendController extends Controller {
         Transaction tx = Datastore.beginTransaction();
         Datastore.put(log);
         tx.commit();
+
+        // メール作成
+        for (Receiver receiver : list) {
+            QueueFactory.getQueue("mail").add(
+                Builder
+                    .withUrl("/queue/sendmail")
+                    .param("log", KeyFactory.keyToString(log.getKey()))
+                    .param("receiver_name", receiver.getName())
+                    .param("reciever_email", receiver.getEmail())
+                    .param("sender_email", sender.getEmail())
+                    .countdownMillis(5000)
+                    .method(Method.GET));
+        }
+        requestScope("list", list);
 
         return forward("send.jsp");
     }
